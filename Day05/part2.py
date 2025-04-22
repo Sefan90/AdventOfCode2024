@@ -9,7 +9,7 @@ def loop(pages,leftrules,rightrules):
                             tmppage = row.index(rightrules[i])
                             row[row.index(p)] = rightrules[i] 
                             row[tmppage] = p
-                            print(row)
+                            #print(row)
                     except:
                         continue
         output_pages.append(row)
@@ -23,7 +23,7 @@ def part2():
     leftrules = []
     rightrules = []
     pages = []
-    for row in open('testinput.txt','r'):
+    for row in open('input.txt','r'):
         if row == "\n":
             inputpages = True
         elif inputpages:
@@ -44,20 +44,21 @@ def part2():
                             row[row.index(p)] = rightrules[i] 
                             row[tmppage] = p
                             correctPage = False
-                            print(row)
+                            #print(row)
                     except:
                         continue
         if correctPage == False:
             output_pages.append(row)
-    
     print(len(output_pages))
     output_pages = loop(output_pages,leftrules,rightrules)
     print(len(output_pages))
     output = 0
     for op in output_pages:
         output += int(op[int((len(op) - 1)/2)])
+        # print(op, int(op[int((len(op) - 1)/2)]))
     print(output)
 part2()
 
 #low 4628 
 #low 4931
+#high 11126

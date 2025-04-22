@@ -1,15 +1,21 @@
-def checklist(lista, pd):
+def checklist(lista, pd, next):
     for i, v in enumerate(lista):
         if i == len(lista)-1:
             return 1
-        elif v < lista[i+1] and lista[i+1]-v < 4:
+        elif v < lista[i+1] and lista[i+1]-v < 4 and lista[i+1]-v > 0 and (next == 0 or next == 1):
+            next = 1
+            continue
+        elif v > lista[i+1] and v-lista[i+1] < 4 and v-lista[i+1] > 0 and (next == 0 or next == -1):
+            next = -1
             continue
         elif pd == False:
             tmp_lista = lista[:i]+lista[i+1:]
-            return checklist(tmp_lista, True)
+            tmp_ret = checklist(tmp_lista, True, next)
+            if tmp_ret == 0 and i != 0:
+                tmp_lista = lista[:i-1]+lista[i:]
+                tmp_ret = checklist(tmp_lista, True, next)
+            return tmp_ret
         else:
-            if  v < lista[i+1]:
-                print(lista, v < lista[i+1],lista[i+1]-v < 4)
             return 0
         
 def part2():
@@ -17,10 +23,7 @@ def part2():
     output = 0
     for row in file:
         row = [int(i) for i in row.split(" ")]
-        tmp_output = checklist(row, False)
-        if tmp_output == 0:
-            row.reverse()
-            tmp_output = checklist(row, False)
+        tmp_output = checklist(row, False,0)
         output += tmp_output
 
     print(output)
@@ -28,3 +31,8 @@ def part2():
 part2()
 
 #300,310 to low
+#320 wrong
+#315 wrong
+#497 wrong
+
+#315
